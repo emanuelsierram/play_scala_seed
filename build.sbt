@@ -16,7 +16,8 @@ libraryDependencies += "com.typesafe.play" %% "play-slick-evolutions" % "5.1.0"
 libraryDependencies += "com.h2database" % "h2" % "2.2.222"
 libraryDependencies += "mysql" % "mysql-connector-java" % "8.0.33"
 
-
+libraryDependencies += ws
+libraryDependencies += ehcache
 
 libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always
 libraryDependencies += "com.github.tototoshi" %% "slick-joda-mapper" % "2.4.2"

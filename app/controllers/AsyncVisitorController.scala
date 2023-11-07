@@ -1,22 +1,23 @@
 package controllers
 
 import model.entity.User
-import model.service.UserService
+import model.service.{UserService, PoketWSPlay}
 
 import scala.concurrent.{ExecutionContext, Future}
 import play.api.mvc._
-import play.api.libs.json.Json
+import play.api.libs.json.{JsValue, Json}
 
 import javax.inject.Inject
-class AsyncVisitorController @Inject()(val controllerComponents: ControllerComponents, userServiceAsync: UserService)(implicit exec: ExecutionContext)extends BaseController{
+class AsyncVisitorController @Inject()(val controllerComponents: ControllerComponents, userServiceAsync: UserService, wSPlay: PoketWSPlay)(implicit exec: ExecutionContext)extends BaseController{
 
-  /*def getAllVisitors = Action.async { implicit request =>
-    val visitors: Seq[Visitor] = visitorService.getVisitorAll()
-    val futureVisitors: Future[Seq[Visitor]] = Future.successful(visitors)
-    futureVisitors.map { visitors =>
-      Ok(Json.toJson(visitors))
+  def getPoketApi = Action.async {
+    wSPlay.getApiResponse().map { response =>
+      Ok(response.body).as("application/json")
+    }.recover {
+      case e: Exception =>
+        InternalServerError("Error al procesar la respuesta de la API: " + e.getMessage)
     }
-  }*/
+  }
 
   def getUsers = Action.async {
     userServiceAsync.getUsersAll().map { user =>

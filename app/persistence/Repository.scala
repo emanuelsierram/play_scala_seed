@@ -1,4 +1,4 @@
-package comun
+package persistence
 
 import scala.concurrent.Future
 

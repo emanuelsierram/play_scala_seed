@@ -9,19 +9,16 @@ import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class UserRepository  @Inject()(protected val dbConfigProvider: DatabaseConfigProvider)(implicit executionContext: ExecutionContext) extends HasDatabaseConfigProvider[JdbcProfile] {
+class UserRepository  @Inject()(protected val dbConfigProvider: DatabaseConfigProvider)(implicit executionContext: ExecutionContext) extends HasDatabaseConfigProvider[JdbcProfile] with Repository[User]{
   import profile.api._
 
-  object VisitorRepositoryH2 {
     private val users = TableQuery[UserTable]
-    implicit val execute: Repository[User] = new Repository[User] {
-      override def crate(user: User): Future[Int] = db.run(users += user)
 
-      override def find(): Future[Seq[User]] = {
-        db.run(users.result)}
-    }
+  override def crate(user: User): Future[Int] = db.run(users += user)
 
-  }
+  override def find(): Future[Seq[User]] = db.run(users.result)
+
+
 
   private class UserTable(tag: Tag) extends Table[User](tag, "USERS") {
     def id = column[String]("ID", O.PrimaryKey, O.AutoInc)
@@ -32,5 +29,6 @@ class UserRepository  @Inject()(protected val dbConfigProvider: DatabaseConfigPr
 
     def * = (id, email, createdAt) <> ((User.apply _).tupled, User.unapply)
   }
+
 
 }

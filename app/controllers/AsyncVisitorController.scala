@@ -28,7 +28,7 @@ class AsyncVisitorController @Inject()(val controllerComponents: ControllerCompo
   def createUser: Action[User] = Action.async(parse.json[User]) { implicit request =>
     val user = request.body
     userServiceAsync.createVisitor(user).map { result =>
-      Ok(s"Usuatio creado con exito")
+      Ok(s"$result Usuario creado con exito")
     }
   }
 

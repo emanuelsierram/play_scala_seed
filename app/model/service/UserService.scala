@@ -8,15 +8,15 @@ import scala.concurrent.Future
 
 
 @Singleton
-class UserService @Inject()(visitorRepositoryH2: UserRepository){
+class UserService @Inject()(visitorRepository: UserRepository){
 
 
   def getUsersAll(): Future[Seq[User]] = {
-    visitorRepositoryH2.VisitorRepositoryH2.execute.find()
+    visitorRepository.find()
   }
 
   def createVisitor(user: User): Future[Int] = {
-    visitorRepositoryH2.VisitorRepositoryH2.execute.crate(user)
+    visitorRepository.crate(user)
 
   }
 }

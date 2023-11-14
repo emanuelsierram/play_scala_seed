@@ -1,13 +1,15 @@
-import org.mockito.Mockito._
+package unit
+
 import model.entity.User
 import model.service.UserService
 import org.joda.time.DateTime
 import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito._
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.PlaySpec
 import persistence.UserRepository
-import scala.concurrent.ExecutionContext.Implicits.global
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class UserServiceSpec extends PlaySpec with MockitoSugar {

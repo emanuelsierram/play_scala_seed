@@ -22,6 +22,12 @@ libraryDependencies += ehcache
 libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always
 libraryDependencies += "com.github.tototoshi" %% "slick-joda-mapper" % "2.4.2"
 
+
+libraryDependencies += jdbc % Test
+
+libraryDependencies += "com.h2database" % "h2" % "1.4.200" % "test"
+libraryDependencies += "com.typesafe.play" %% "play-slick" % "5.1.0" % Test
+
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "com.ceiba.controllers._"
 
